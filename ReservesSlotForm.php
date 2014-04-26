@@ -13,15 +13,14 @@ $nameErr = $guidErr = $groupErr = $groupnameErr = "";
 $name = $guid = $group = $groupname = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   if (empty($_POST["name"])) {
-     $nameErr = "Name is required";
-   } else {
-     $name = test_input($_POST["name"]);
-     // check if name only contains letters and whitespace
-     if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-       $nameErr = "Only letters and white space allowed"; 
-     }
-   }
+if(isset($_POST['name']) && !empty($_POST['name']))
+{
+    if(!preg_match("/^[a-zA-Z ]*$/", $_POST['name']))
+    {
+        $nameErr = "Only letters and white space allowed";
+    }
+}
+else $nameErr = "Name is required";
    
    if (empty($_POST["guid"])) {
      $nameErr = "GUID is required";
@@ -50,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        $nameErr = "Only letters and white space allowed"; 
      }
    }
-
+}
 function test_input($data) {
    $data = trim($data);
    $data = stripslashes($data);
